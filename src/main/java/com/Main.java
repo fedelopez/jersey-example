@@ -14,23 +14,25 @@ import java.net.URI;
  */
 public class Main {
 
-    private static URI getBaseURI() {
-        return UriBuilder.fromUri("http://localhost/").port(9998).build();
-    }
-
-    public static final URI BASE_URI = getBaseURI();
-
-    protected static HttpServer startServer() throws IOException {
+    protected static HttpServer startServer(String host, int port) throws IOException {
         System.out.println("Starting grizzly...");
         ResourceConfig rc = new ClassNamesResourceConfig(InterpretResource.class.getName());
-        return GrizzlyServerFactory.createHttpServer(BASE_URI, rc);
+        return GrizzlyServerFactory.createHttpServer(baseURI(host, port), rc);
     }
 
     public static void main(String[] args) throws IOException {
-        HttpServer httpServer = startServer();
-        String format = String.format("Jersey app started with WADL available at %sapplication.wadl\nTry out %sinterpret\nHit enter to stop it...", BASE_URI, BASE_URI);
+        String host = (args.length == 0 ? "localhost" : "contract-interpreter.heroku.com");
+        int port = (args.length == 0 ? 9998 : Integer.valueOf(args[0]));
+
+        URI uri = baseURI(host, port);
+        HttpServer httpServer = startServer(uri.getHost(), uri.getPort());
+        String format = String.format("Jersey app started with WADL available at %sapplication.wadl\nTry out %sinterpret\nHit enter to stop it...", uri, uri);
         System.out.println(format);
         System.in.read();
         httpServer.stop();
+    }
+
+    private static URI baseURI(String localhost, int port) {
+        return UriBuilder.fromUri("http://" + localhost + "/").port(port).build();
     }
 }
