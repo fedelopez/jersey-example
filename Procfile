@@ -1,1 +1,1 @@
-web:    java -cp target/classes:target/dependency/* com.Main $PORT
+web:    java -cp target/classes:target/dependency/* com.Main
