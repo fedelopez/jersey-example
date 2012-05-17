@@ -27,10 +27,8 @@ public class Main {
 
         URI uri = baseURI(host, port);
         HttpServer httpServer = startServer(uri.getHost(), uri.getPort());
-        String format = String.format("Jersey app started with WADL available at %sapplication.wadl\nTry out %sinterpret\nHit enter to stop it...", uri, uri);
+        String format = String.format("Jersey app started with WADL available at %sapplication.wadl\nTry out %sinterpret", uri, uri);
         System.out.println(format);
-        System.in.read();
-        httpServer.stop();
     }
 
     private static URI baseURI(String localhost, int port) {
