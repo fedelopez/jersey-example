@@ -16,10 +16,11 @@ public class InterpretResource {
     @GET
     // The Java method will produce content identified by the MIME Media
     // type "text/plain"
-    @Produces({"application/xml", "application/json"})
+    @Produces({"application/json"})
     public String getInterpretation() {
         Gson gson = new Gson();
         Question question = new Question();
+        question.attribute = "at_least_weekly";
         question.mandatory = true;
         question.text = "Do you drive more than once a week?";
         gson.toJson(question);
@@ -29,5 +30,6 @@ public class InterpretResource {
     private static class Question {
         private String text;
         private boolean mandatory;
+        private String attribute;
     }
 }

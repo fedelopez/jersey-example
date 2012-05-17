@@ -1,0 +1,26 @@
+<html>
+<head>
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("button").click(function () {
+                $.getJSON({
+                    type:'GET',
+                    url:'http://contract-interpreter.herokuapp.com/interpret',
+                    data:"{}",
+                    dataType:'json',
+                    success:function (output) {
+                        alert("output")
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+
+<button>Get JSON data</button>
+<div></div>
+
+</body>
+</html>
