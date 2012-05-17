@@ -23,7 +23,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         String herokuPort = System.getenv("PORT");
         int port = (herokuPort == null ? 9998 : Integer.parseInt(herokuPort));
-        String host = (herokuPort == null ? "localhost" : "contract-interpreter.heroku.com");
+        String host = "localhost";
 
         URI uri = baseURI(host, port);
         HttpServer httpServer = startServer(uri.getHost(), uri.getPort());
