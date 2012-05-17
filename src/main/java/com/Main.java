@@ -21,8 +21,9 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        String host = (args.length == 0 ? "localhost" : "contract-interpreter.heroku.com");
-        int port = (args.length == 0 ? 9998 : Integer.valueOf(args[0]));
+        String herokuPort = System.getenv("PORT");
+        int port = (herokuPort == null ? 9998 : Integer.parseInt(herokuPort));
+        String host = (herokuPort == null ? "localhost" : "contract-interpreter.heroku.com");
 
         URI uri = baseURI(host, port);
         HttpServer httpServer = startServer(uri.getHost(), uri.getPort());
