@@ -5,10 +5,8 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $("button").click(function () {
-                $.getJSON("http://contract-interpreter.herokuapp.com/interpret", function (data) {
-                    $.each(data, function (i, item) {
-                        alert(item);
-                    });
+                $.getJSON("http://localhost:9998/jsonp/questions?callback=?", function (data) {
+                    alert(data[0].text + ", mandatory: " + data[0].mandatory + ", bound to attribute: " + data[0].attribute);
                 });
             });
         });
@@ -16,7 +14,7 @@
 </head>
 <body>
 
-<button>Get JSON data</button>
+<button onclick="">Get JSON data</button>
 <div></div>
 
 </body>

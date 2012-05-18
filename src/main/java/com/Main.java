@@ -1,23 +1,25 @@
 package com;
 
-import com.sun.jersey.api.container.grizzly2.GrizzlyServerFactory;
-import com.sun.jersey.api.core.ClassNamesResourceConfig;
-import com.sun.jersey.api.core.ResourceConfig;
-import org.glassfish.grizzly.http.server.HttpServer;
+import com.sun.grizzly.http.SelectorThread;
+import com.sun.jersey.api.container.grizzly.GrizzlyWebContainerFactory;
 
 import javax.ws.rs.core.UriBuilder;
 import java.io.IOException;
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author FedericoL
  */
 public class Main {
 
-    protected static HttpServer startServer(String host, int port) throws IOException {
+    protected static SelectorThread startServer(URI uri) throws IOException {
         System.out.println("Starting grizzly...");
-        ResourceConfig rc = new ClassNamesResourceConfig(Interpreter.class.getName());
-        return GrizzlyServerFactory.createHttpServer(baseURI(host, port), rc);
+
+        final Map<String, String> initParams = new HashMap<String, String>();
+        initParams.put("com.sun.jersey.config.property.packages", "com");
+        return GrizzlyWebContainerFactory.create(uri, initParams);
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
@@ -26,13 +28,13 @@ public class Main {
         String host = (herokuPort == null ? "localhost" : "0.0.0.0");
 
         URI uri = baseURI(host, port);
-        HttpServer server = startServer(uri.getHost(), uri.getPort());
-        String format = String.format("Jersey app started: %b\nWADL available at %sapplication.wadl\nTry out %sinterpret", server.isStarted(), uri, uri);
+        SelectorThread server = startServer(uri);
+        String format = String.format("Jersey app running: %b\nWADL available at %sapplication.wadl\nTry out %squestions", server.isRunning(), uri, uri);
         System.out.println(format);
         Thread.sleep(Long.MAX_VALUE);
     }
 
     private static URI baseURI(String localhost, int port) {
-        return UriBuilder.fromUri("http://" + localhost + "/").port(port).build();
+        return UriBuilder.fromUri("http://" + localhost + "/jsonp/").port(port).build();
     }
 }
