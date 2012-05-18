@@ -1,17 +1,14 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $("button").click(function () {
-                $.getJSON({
-                    type:'GET',
-                    url:'http://contract-interpreter.herokuapp.com/interpret',
-                    data:"{}",
-                    dataType:'json',
-                    success:function (output) {
-                        alert("output")
-                    }
+                $.getJSON("http://contract-interpreter.herokuapp.com/interpret/?callback=?", function (data) {
+                    $.each(data, function (i, item) {
+                        alert(item);
+                    });
                 });
             });
         });
