@@ -5,7 +5,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $("button").click(function () {
-                $.getJSON("http://localhost:9998/jsonp/questions?callback=?", function (data) {
+                $.getJSON("http://contract-interpreter.herokuapp.com/jsonp/questions?callback=?", function (data) {
                     alert(data[0].text + ", mandatory: " + data[0].mandatory + ", bound to attribute: " + data[0].attribute);
                 });
             });
