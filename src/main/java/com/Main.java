@@ -4,7 +4,6 @@ import com.sun.jersey.api.container.grizzly2.GrizzlyServerFactory;
 import com.sun.jersey.api.core.ClassNamesResourceConfig;
 import com.sun.jersey.api.core.ResourceConfig;
 import org.glassfish.grizzly.http.server.HttpServer;
-import sun.awt.windows.ThemeReader;
 
 import javax.ws.rs.core.UriBuilder;
 import java.io.IOException;
@@ -17,7 +16,7 @@ public class Main {
 
     protected static HttpServer startServer(String host, int port) throws IOException {
         System.out.println("Starting grizzly...");
-        ResourceConfig rc = new ClassNamesResourceConfig(InterpretResource.class.getName());
+        ResourceConfig rc = new ClassNamesResourceConfig(Interpreter.class.getName());
         return GrizzlyServerFactory.createHttpServer(baseURI(host, port), rc);
     }
 

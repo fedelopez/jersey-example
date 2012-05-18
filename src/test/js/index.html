@@ -5,7 +5,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $("button").click(function () {
-                $.getJSON("http://contract-interpreter.herokuapp.com/interpret/?callback=?", function (data) {
+                $.getJSON("http://contract-interpreter.herokuapp.com/interpret", function (data) {
                     $.each(data, function (i, item) {
                         alert(item);
                     });
