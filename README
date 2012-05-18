@@ -1,1 +1,6 @@
-This file was created by IntelliJ IDEA 11.1.1 for binding GitHub repository
+Example of how to access using RESTful Web Services on a remote app deployed at Heroku:
+
+http://contract-interpreter.herokuapp.com/jsonp/questions.
+
+The returning object from the URL above is a bean representing a question on a form.
+The JSON call is invoked using jQuery's JSONP support.
